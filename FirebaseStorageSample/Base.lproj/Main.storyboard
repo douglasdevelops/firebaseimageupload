@@ -36,13 +36,32 @@
                                     <action selector="SelectImage" destination="BYZ-38-t0r" eventType="touchUpInside" id="D0Q-Pu-Te6"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvQ-EO-C8L">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fvQ-EO-C8L">
                                 <rect key="frame" x="87" y="489" width="203" height="30"/>
                                 <state key="normal" title="Upload Image To FireBase"/>
                                 <connections>
                                     <action selector="UploadToFireBase" destination="BYZ-38-t0r" eventType="touchUpInside" id="dEy-PO-UVp"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="di4-nk-pu4">
+                                <rect key="frame" x="167" y="54" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="GoOnline:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mmt-RX-fh8"/>
+                                </connections>
+                            </button>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progressViewStyle="bar" progress="0.20000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="d3g-Ko-zHE">
+                                <rect key="frame" x="87" y="557.5" width="203" height="2.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdM-dt-Y4g">
+                                <rect key="frame" x="87" y="575" width="203" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -59,7 +78,11 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="SelectedImageView" destination="AVu-nV-Deh" id="X6M-XV-zEa"/>
+                        <outlet property="btnIsUserOnline" destination="di4-nk-pu4" id="iBY-x6-ZuP"/>
+                        <outlet property="btnUploadImageToFirebase" destination="fvQ-EO-C8L" id="1dC-kB-2lO"/>
+                        <outlet property="imgViewSelectedImage" destination="AVu-nV-Deh" id="d3S-Xl-aI7"/>
+                        <outlet property="lblProgress" destination="hdM-dt-Y4g" id="yOJ-Sz-bbz"/>
+                        <outlet property="prgFileUploadProgress" destination="d3g-Ko-zHE" id="rUf-CD-hLr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

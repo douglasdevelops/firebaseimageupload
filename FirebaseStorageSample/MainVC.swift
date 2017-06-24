@@ -12,24 +12,38 @@ import FirebaseAuth
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    @IBOutlet weak var SelectedImageView: UIImageView!
+    @IBOutlet weak var imgViewSelectedImage: UIImageView!
+    @IBOutlet weak var btnIsUserOnline: UIButton!
+    @IBOutlet weak var btnUploadImageToFirebase: UIButton!
+    @IBOutlet var prgFileUploadProgress: UIProgressView!
+    @IBOutlet weak var lblProgress: UILabel!
     
     
     
     var ImagePicker: UIImagePickerController!
     var handle: AuthStateDidChangeListenerHandle? = nil
-    let pickedImage: UIImage? = nil
+    let selectedImage: UIImage? = nil
+    
+    var isUserSigned: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-            
+            if user != nil {
+                print("Logged In")
+            } else {
+                print ("Not Logged In")
+            }
         }
         
-        SignInUser()
+        if isUserSigned == false {
+            btnIsUserOnline.backgroundColor = UIColor.red
+        } else {
+            btnIsUserOnline.backgroundColor = UIColor.green
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -47,7 +61,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("Picked Image")
         
         if let img = info[UIImagePickerControllerEditedImage] as? UIImage {
-            SelectedImageView.image = img
+            imgViewSelectedImage.image = img
+            btnUploadImageToFirebase.isHidden = false
+            prgFileUploadProgress.isHidden = false
+            lblProgress.isHidden = false
             
         }
         
@@ -57,6 +74,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         print("Canceled Without Picking Image")
+        ImagePicker.dismiss(animated: true, completion: nil)
     }
 
     func SignInUser()
@@ -65,10 +83,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         if error != nil {
             print(error!)
         } else {
-
+            self.btnIsUserOnline.backgroundColor = UIColor.green
         }
-        
-        }
+      }
+    }
+    
+    
+    @IBAction func GoOnline(_ sender: Any) {
+        SignInUser()
     }
     
     @IBAction func SelectImage() {
@@ -79,32 +101,37 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func UploadToFireBase() {
-        guard let img = SelectedImageView.image else {
+        guard let _ = imgViewSelectedImage.image else {
             return
         }
         
-        if let data = UIImageJPEGRepresentation(SelectedImageView.image!, 0.2) {
+        if let data = UIImageJPEGRepresentation(imgViewSelectedImage.image!, 0.2) {
             let imgUniqueID = NSUUID().uuidString
-            
             
             let storage = Storage.storage()
             let storageRef = storage.reference()
-            
-
-            // Create a reference to the file you want to upload
             let profileRef = storageRef.child("images/\(imgUniqueID).jpg")
             
-            // Upload the file to the path "images/rivers.jpg"
-            let _ = profileRef.putData(data, metadata: nil) { (metadata, error) in
+            let PhotoMetaData: StorageMetadata = StorageMetadata();
+            PhotoMetaData.contentType = "image/jpeg"
+            
+            let uploadtask = profileRef.putData(data, metadata: nil) { (metadata, error) in
                 guard let metadata = metadata else {
                     // Uh-oh, an error occurred!
                     return
                 }
-                // Metadata contains file metadata such as size, content-type, and download URL.
+                
                 let downloadURL = metadata.downloadURL
-                print(downloadURL()?.absoluteString)
+
             }
             
+            uploadtask.observe(.progress) { snapshot in
+                let percentComplete = 100 * Double(snapshot.progress!.completedUnitCount)
+                    / Double(snapshot.progress!.totalUnitCount)
+                
+                self.lblProgress.text = String(percentComplete)
+                self.prgFileUploadProgress.progress = Float(percentComplete)
+            }
         }
     }
     
