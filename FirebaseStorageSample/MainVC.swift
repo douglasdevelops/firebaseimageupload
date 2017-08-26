@@ -10,22 +10,22 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MainVC: UIViewController {
 
+    //MARK: IBOutlets
     @IBOutlet weak var imgViewSelectedImage: UIImageView!
     @IBOutlet weak var btnIsUserOnline: UIButton!
     @IBOutlet weak var btnUploadImageToFirebase: UIButton!
     @IBOutlet var prgFileUploadProgress: UIProgressView!
     @IBOutlet weak var lblProgress: UILabel!
     
-    
-    
+    //MARK: Module Level Variables and Constants
     var ImagePicker: UIImagePickerController!
     var handle: AuthStateDidChangeListenerHandle? = nil
     let selectedImage: UIImage? = nil
-    
     var isUserSigned: Bool = false
     
+    //MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -45,38 +45,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         
     }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         Auth.auth().removeStateDidChangeListener(handle!)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        print("Picked Image")
-        
-        if let img = info[UIImagePickerControllerEditedImage] as? UIImage {
-            imgViewSelectedImage.image = img
-            btnUploadImageToFirebase.isHidden = false
-            prgFileUploadProgress.isHidden = false
-            lblProgress.isHidden = false
-            
-        }
-        
-        ImagePicker.dismiss(animated: true, completion: nil)
-    }
-    
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        print("Canceled Without Picking Image")
-        ImagePicker.dismiss(animated: true, completion: nil)
-    }
-
+    //MARK: User Functions
     func SignInUser()
     {
        Auth.auth().signIn(withEmail: "douglasc.spencer@gmail.com", password: "qqqqqq") { (user, error) in
@@ -88,7 +62,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       }
     }
     
-    
+    //MARK: IBActions
     @IBAction func GoOnline(_ sender: Any) {
         SignInUser()
     }
@@ -120,9 +94,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     // Uh-oh, an error occurred!
                     return
                 }
-                
                 let downloadURL = metadata.downloadURL
-
             }
             
             uploadtask.observe(.progress) { snapshot in
@@ -134,8 +106,5 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         }
     }
-    
-    
-
 }
 

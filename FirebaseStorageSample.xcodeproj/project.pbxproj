@@ -14,6 +14,7 @@
 		220AB0DD1EFDC8D800D604CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220AB0DC1EFDC8D800D604CC /* Assets.xcassets */; };
 		220AB0E01EFDC8D800D604CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 220AB0DE1EFDC8D800D604CC /* LaunchScreen.storyboard */; };
 		220AB0EB1EFDCBC800D604CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 220AB0EA1EFDCBC800D604CC /* GoogleService-Info.plist */; };
+		229BE0951F51A6450046274C /* MainVC_ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229BE0941F51A6450046274C /* MainVC_ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		220AB0DF1EFDC8D800D604CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		220AB0E11EFDC8D800D604CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		220AB0EA1EFDCBC800D604CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		229BE0941F51A6450046274C /* MainVC_ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC_ImagePicker.swift; sourceTree = "<group>"; };
 		2EA7F8E9CF7A131A0565B1A7 /* Pods-FirebaseStorageSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FirebaseStorageSample.release.xcconfig"; path = "Pods/Target Support Files/Pods-FirebaseStorageSample/Pods-FirebaseStorageSample.release.xcconfig"; sourceTree = "<group>"; };
 		760F5549B7BAB0083A23A7D1 /* Pods_FirebaseStorageSample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FirebaseStorageSample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -72,6 +74,7 @@
 		220AB0D41EFDC8D800D604CC /* FirebaseStorageSample */ = {
 			isa = PBXGroup;
 			children = (
+				229BE0931F51A62D0046274C /* Extension */,
 				220AB0E71EFDC96C00D604CC /* Model */,
 				220AB0E81EFDC97100D604CC /* View */,
 				220AB0E91EFDC97600D604CC /* Controller */,
@@ -95,7 +98,6 @@
 		220AB0E81EFDC97100D604CC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				220AB0D71EFDC8D800D604CC /* MainVC.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -103,8 +105,17 @@
 		220AB0E91EFDC97600D604CC /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				220AB0D71EFDC8D800D604CC /* MainVC.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		229BE0931F51A62D0046274C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				229BE0941F51A6450046274C /* MainVC_ImagePicker.swift */,
+			);
+			name = Extension;
 			sourceTree = "<group>";
 		};
 		746A59533BB9E6BCD0EF8A21 /* Frameworks */ = {
@@ -242,6 +253,7 @@
 			files = (
 				220AB0D81EFDC8D800D604CC /* MainVC.swift in Sources */,
 				220AB0D61EFDC8D800D604CC /* AppDelegate.swift in Sources */,
+				229BE0951F51A6450046274C /* MainVC_ImagePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
